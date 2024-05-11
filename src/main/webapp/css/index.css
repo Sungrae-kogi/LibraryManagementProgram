@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	height: 100%
+}
+
+body {
+	display: flex;
+	align-itmes: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.container {
+	width: 50%;
+	max-width: 500px;
+}
+
+.main_div {
+	height: 100%;
+	display: flex;
+	flex-direction : column;
+	align-items : center;
+	justify-content: center;
+}
