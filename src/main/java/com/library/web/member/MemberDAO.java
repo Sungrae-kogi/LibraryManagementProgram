@@ -64,13 +64,16 @@ public class MemberDAO {
 			stmt.setString(1, vo.getEmpno());
 			rs = stmt.executeQuery();
 			
-			rs.next();
-			member = new MemberVO(); 
-			member.setEmpno(rs.getString("EMPNO"));
-			member.setPwd(rs.getString("PWD"));
-
+			while(rs.next()) {
+				member = new MemberVO(); 
+				member.setEmpno(rs.getString("EMPNO"));
+				member.setPwd(rs.getString("PWD"));
+			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
 		} finally {
 			JDBCUtil.close(rs, stmt, conn);
 		}

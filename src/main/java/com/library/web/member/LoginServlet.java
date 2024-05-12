@@ -27,6 +27,7 @@ public class LoginServlet extends HttpServlet {
 		
 		String empno = request.getParameter("EMPNO");
 		String pwd = request.getParameter("PWD");
+		//echo check
 		System.out.println("입력한 EMPNO : "+empno);
 		System.out.println("입력한 PWD : "+pwd);
 		
@@ -48,20 +49,25 @@ public class LoginServlet extends HttpServlet {
 		
     	//메시지 출력
     	if(member != null) {
-    		//pwd 일치
-    		if(member.getPwd().equals(pwd)) {
-    			//도서 목록 화면으로 포워딩한다.
-    			RequestDispatcher dispatcher = request.getRequestDispatcher("/bookList");
-    			dispatcher.forward(request, response);
+    		//empno 일치
+    		if(member.getEmpno().equals(empno)) {
+    			//pwd 일치 -> 로그인
+    			if(member.getPwd().equals(pwd)) {
+    				RequestDispatcher dispatcher = request.getRequestDispatcher("/bookList");
+    				dispatcher.forward(request, response);
+    			//pwd 불일치 -> 로그인화면
+    			}else {
+    				out.println("비밀번호 오류입니다. <br>");
+    				out.println("<a href='/DaejinTest1/index.jsp'>다시 로그인</a>");
+    			}
     			
     		}else {
-    			out.println("비밀번호 오류입니다. <br>");
-    			out.println("<a href='/DaejinTest1/index.html'>다시 로그인</a>");
+    			out.println("교번 오류입니다. <br>");
+    			out.println("<a href='/DaejinTest1/index.jsp'>다시 로그인</a>");
     		}
+    			
     	}else {
-    		//교번 오류상황을 냈을때 여기가 실행안되고 getPwd()가 null값이라는 에러가 발생 해결해야함 ******
-    		out.println("교번 오류입니다. <br>");
-    		out.println("<a href='/DaejinTest1/index.html'>다시 로그인</a>");
+    		response.sendRedirect("/DaejinTest1/index.jsp");
     	}
 		
 	}
