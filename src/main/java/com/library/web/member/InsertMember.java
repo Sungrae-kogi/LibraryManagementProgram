@@ -19,7 +19,7 @@ public class InsertMember {
 			stmt = conn.prepareStatement(sql);
 			
 			//4. SQL 전송
-			stmt.setString(1, "2245022");
+			stmt.setString(1, "2245021");
 			stmt.setString(2, "조성래");
 			stmt.setString(3, "246810");
 			stmt.setString(4, "ADMIN");

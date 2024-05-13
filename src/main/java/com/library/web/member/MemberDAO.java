@@ -15,7 +15,7 @@ public class MemberDAO {
 	// MEMBER 관련 SQL 명령어
 	private String MEMBER_LIST = "SELECT * FROM MEMBER";
 	private String MEMBER_INSERT = "INSERT INTO MEMBER VALUES(?, ?, ?, ?)";
-	private String MEMBER_GET = "SELECT EMPNO, PWD FROM MEMBER WHERE empno = ?";
+	private String MEMBER_GET = "SELECT EMPNO, PWD, ROLE FROM MEMBER WHERE empno = ?";
 
 	// MEMBER 관련 CRUD
 	// 관리자 목록 조회
@@ -68,6 +68,7 @@ public class MemberDAO {
 				member = new MemberVO(); 
 				member.setEmpno(rs.getString("EMPNO"));
 				member.setPwd(rs.getString("PWD"));
+				member.setRole(rs.getString("ROLE"));
 			}
 			
 			

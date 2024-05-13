@@ -15,7 +15,7 @@ public class JDBCUtil {
 			DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 			
 			//2. 커넥션 연결
-			String jdbcUrl = "jdbc:oracle:thin:@localhost:1525:orcl";
+			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(jdbcUrl, "c##sungrae", "1234");
 		}catch(SQLException e) {
 			e.printStackTrace();

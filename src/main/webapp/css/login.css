@@ -10,9 +10,9 @@ html, body {
 }
 
 body {
-	display: flex;
+	dispaly: flex;
 	align-itmes: center;
-	padding-top: 30px;
+	flex-direction : column;
 	padding-bottom: 30px;
 }
 
