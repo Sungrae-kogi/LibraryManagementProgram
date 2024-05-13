@@ -8,6 +8,9 @@
 	String empno = request.getParameter("EMPNO");
 	String pwd = request.getParameter("PWD");
 	
+	System.out.println("empno : " + empno);
+	System.out.println("pwd : " + pwd);
+	
 	MemberVO vo = new MemberVO();
 	vo.setEmpno(empno);	//사용자가 전달한 primary key
 	

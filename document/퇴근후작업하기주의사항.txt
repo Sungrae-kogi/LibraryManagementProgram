@@ -1,0 +1,8 @@
+** GIT push 후 퇴근하고 노트북으로 작업할시 반드시 해야하는사항 **
+
+노트북이 oracle 삭제랑 재설치를 좀 헤매어서 그런지 port 번호가 달라져있음. 노트북 : 1525, 회사 : 1521
+
+JDBCUtil.java 파일에서 jdbcUrl 1525 랑 1521 작업 환경에 맞춰서 변경해야만함 이거때문에 몇시간날림
+
++ oracle home 폴더에서 tnsnames, listener.ora 이런파일들에서도 port 번호 맞는지 확인하고 sql developer에서도 port 번호 확인
+안맞으면 DB 데이터 안넘어옴
