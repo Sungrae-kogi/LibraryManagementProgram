@@ -5,13 +5,12 @@
 <%@ page import="java.sql.*" %>
 
 <%
+	//사용자 입력 로그인정보(교번, 비밀번호) 전달확인
 	String empno = request.getParameter("EMPNO");
 	String pwd = request.getParameter("PWD");
 	
-	System.out.println("empno : " + empno);
-	System.out.println("pwd : " + pwd);
-	
 	MemberVO vo = new MemberVO();
+
 	vo.setEmpno(empno);	//사용자가 전달한 primary key
 	
 	MemberDAO dao = new MemberDAO();

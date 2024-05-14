@@ -7,24 +7,28 @@
 <%
 	BooksVO vo = new BooksVO();
 
-	BooksDAO boardDAO = new BooksDAO();
-	List<BooksVO> bookList = boardDAO.getBooksList();
-
-	for (BooksVO book : bookList) {
-		System.out.print("BookId : " + book.getBook_id());
-		System.out.print("Dupl : " + book.getDupl());
-		System.out.print("Title : " + book.getTitle());
-		System.out.print("Isbn : " + book.getIsbn());
-		System.out.print("Author : " + book.getAuthor());
-		System.out.println("In_dt : " + book.getIn_dt());
+	BooksDAO bookDAO = new BooksDAO();
+	List<BooksVO> bookList = null;
+	
+	//searchBooksProcess.jsp 에서 처리한 데이터 판별
+	//로그인 시에는 attribute가 null이므로 전체 Book 데이타를 출력
+	//header.jsp의 도서 검색창에서 검색한 결과를 request에 담고 forward로 넘어온 경우에는 attribute가 null이 아님
+	Object attribute = request.getAttribute("searchedBookList");
+	if(attribute == null){
+		System.out.println("attribute is null");
+		bookList = bookDAO.getBooksList();
+	}else{
+		System.out.println("attribute has something");
+		bookList = (List<BooksVO>) request.getAttribute("searchedBookList");
 	}
+	
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin_Page</title>
+<title><%=request.getSession().getAttribute("ROLE") %>_Page</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
