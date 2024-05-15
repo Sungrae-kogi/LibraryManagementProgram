@@ -28,14 +28,20 @@ public class BooksDAO {
 	// 도서 하나 검색
 	public BooksVO getBook(BooksVO vo) {
 		BooksVO book = null;
+		String sql = "SELECT * FROM BOOKS WHERE BOOK_ID='"+vo.getBook_id()+"'";
 		try {
 			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOOK_GET);
-			stmt.setString(1, vo.getBook_id());
+			stmt = conn.prepareStatement(sql);
+			//stmt.setString(1, vo.getBook_id());
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				book = new BooksVO(); 
-				
+				book.setBook_id(rs.getString("BOOK_ID"));
+				book.setDupl(rs.getInt("DUPL"));
+				book.setTitle(rs.getString("TITLE"));
+				book.setIsbn(rs.getString("ISBN"));
+				book.setAuthor(rs.getString("AUTHOR"));
+				book.setIn_dt(rs.getDate("IN_DT"));
 			}
 			
 		}catch(SQLException e) {

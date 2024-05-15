@@ -1,2 +1,16 @@
-1. 도서 검색 기능에
-searchBooksProcess 에서 
+1. 도서 정보 불러오기
+BooksDAO 의 getBook 에서 id 컬럼값을 이용해서 책 데이터를 불러오는 과정에서 
+
+미리 private String BOOK_GET = "SELECT * FROM BOOKS WHERE BOOK_ID=?";선언해둔 쿼리문을 사용하여
+stmt.setString(1, vo.getBook_id()); 로 쿼리의 문자열 매개변수에 값을 할당하여 실행하면 결과가 null이 나오는 문제가 발생.
+
+GetBook.java파일에서 출력 테스트 중 SELECT * "FROM BOOK WHERE BOOK_ID = 'book_id'" 이렇게 '' 안에 id값을 적었을때 결과가 나오는것을 확인하였고.
+BooksDAO.java파일의 getBook()메소드에서 선언해둔 쿼리문 대신
+String sql = "SELECT * FROM BOOKS WHERE BOOK_ID='"+vo.getBook_id()+"'";
+이렇게 직접 ID값을 '' 안에 설정해줌으로서 해결이 가능한 이유가 궁금합니다.
+
+
+2. 도서 정보를 불러오는 과정에서 이미지 파일 처리
+도서정보를 불러오고 출력하는 과정에서 도서의 이미지 파일이 존재한다면 어떻게 처리되는지 궁금해서 방법을 찾아보았고
+효율은 안좋지만 BLOB 형식으로 DB에 저장한다는 방법도있었고, 파일 시스템에 이미지들을 저장하고 DB에는 URL이나 파일 이름만 저장하는 방법,
+로컬서버에 저장하는 방법 등 여러가지가 있다는걸 알게되었는데  이곳에서는 어떤방식으로 처리하고계시는지.

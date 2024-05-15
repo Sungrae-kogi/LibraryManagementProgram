@@ -15,11 +15,10 @@
 	//header.jsp의 도서 검색창에서 검색한 결과를 request에 담고 forward로 넘어온 경우에는 attribute가 null이 아님
 	Object attribute = request.getAttribute("searchedBookList");
 	if(attribute == null){
-		System.out.println("attribute is null");
 		bookList = bookDAO.getBooksList();
 	}else{
 		System.out.println("attribute has something");
-		bookList = (List<BooksVO>) request.getAttribute("searchedBookList");
+		bookList = (List<BooksVO>) attribute;
 	}
 	
 %>
@@ -29,26 +28,11 @@
 <head>
 <meta charset="UTF-8">
 <title><%=request.getSession().getAttribute("ROLE") %>_Page</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
-<style>
-	.book_center {
-		text-align: center;
-	}
-	
-	.table {
-		margin-top: 45px;
-		padding-top: 45px;
-	}
-	
-</style>
+
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/WEB-INF/layout/header.jsp" %>
+	<%@ include file="/WEB-INF/layout/header_index.jsp" %>
 	<table class="table table-striped table-hover">
 		<tr>
 			<th class="book_center">BOOK_ID</th>
@@ -59,7 +43,7 @@
 			<th class="book_center">IN_DT</th>
 		</tr>
 		<%for(BooksVO book : bookList) {%>
-			<tr>
+			<tr onclick="location.href='/DaejinTest1/viewBookStatus.jsp?bookID=<%=book.getBook_id()%>'">
 			<td class="book_center"><%=book.getBook_id() %></td>
 			<td class="book_center"><%=book.getDupl() %></td>
 			<td><%=book.getTitle() %></td>
@@ -70,9 +54,6 @@
 		<%} %>
 	</table>
 	<footer> </footer>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous"></script>
+	
 </body>
 </html>
