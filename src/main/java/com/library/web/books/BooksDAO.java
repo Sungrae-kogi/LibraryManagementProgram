@@ -22,7 +22,7 @@ public class BooksDAO {
 	private String BOOKAUTHOR_SEARCH = "SELECt * FROM BOOKS WHERE AUTHOR=?";
 	
 	//출력테스트용 query
-	private String BOOK_GET = "SELECT * FROM BOOKS WHERE BOOK_ID=?";
+	private String BOOK_GET = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
 	
 	
 	// 도서 하나 검색
@@ -31,9 +31,15 @@ public class BooksDAO {
 		String sql = "SELECT * FROM BOOKS WHERE BOOK_ID='"+vo.getBook_id()+"'";
 		try {
 			conn = JDBCUtil.getConnection();
+			
 			stmt = conn.prepareStatement(sql);
-			//stmt.setString(1, vo.getBook_id());
+			
+			//String sql2 = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
+//			stmt = conn.prepareStatement(sql2);
+//			stmt.setString(1, vo.getBook_id());
+						
 			rs = stmt.executeQuery();
+			
 			while(rs.next()) {
 				book = new BooksVO(); 
 				book.setBook_id(rs.getString("BOOK_ID"));

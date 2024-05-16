@@ -11,10 +11,15 @@
 	crossorigin="anonymous"></script>
 
 <style>
-	.card {
+	.a {
 		margin-top: 50px;
-		padding-top: 45px;
+		
 	}
+	
+	.table-top-border th {
+		border-top: 3px solid black;
+	}
+	
 </style>	
 	
 <nav class="navbar navbar-dark bg-dark p-1 fixed-top">

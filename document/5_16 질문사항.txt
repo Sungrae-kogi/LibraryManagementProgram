@@ -1,13 +1,18 @@
 1. 도서 정보 불러오기
 BooksDAO 의 getBook 에서 id 컬럼값을 이용해서 책 데이터를 불러오는 과정에서 
 
-미리 private String BOOK_GET = "SELECT * FROM BOOKS WHERE BOOK_ID=?";선언해둔 쿼리문을 사용하여
+미리 private String BOOK_GET = "SELECT * FROM BOOKS WHERE BOOK_ID=?";
+선언해둔 쿼리문을 사용하여
 stmt.setString(1, vo.getBook_id()); 로 쿼리의 문자열 매개변수에 값을 할당하여 실행하면 결과가 null이 나오는 문제가 발생.
 
-GetBook.java파일에서 출력 테스트 중 SELECT * "FROM BOOK WHERE BOOK_ID = 'book_id'" 이렇게 '' 안에 id값을 적었을때 결과가 나오는것을 확인하였고.
+GetBook.java파일에서 출력 테스트 중 SELECT * "FROM BOOKS WHERE BOOK_ID = 'book_id'" 이렇게 '' 안에 id값을 적었을때 결과가 나오는것을 확인하였고.
 BooksDAO.java파일의 getBook()메소드에서 선언해둔 쿼리문 대신
+
 String sql = "SELECT * FROM BOOKS WHERE BOOK_ID='"+vo.getBook_id()+"'";
-이렇게 직접 ID값을 '' 안에 설정해줌으로서 해결이 가능한 이유가 궁금합니다.
+이렇게 직접 ID값을 '' 안에 설정해줌으로서 해결이 가능한 이유가 궁금합니다.	
+
+-> 해결 : SELECT * FROM BOOKS WHERE trim(BOOK_ID) = ? 로 BOOK_ID부분의 공백을 제거하는작업이 필요, setString에서 자동으로 ''을 부여하기때문에 만약 ID값에 공백이 포함되어있었다면 공백까지 포함된 부분을 ' ' 처리되면서
+	올바른 값이 탐색되지않는것. 
 
 
 2. 도서 정보를 불러오는 과정에서 이미지 파일 처리
