@@ -20,6 +20,7 @@ public class BooksDAO {
 	private String BOOKID_SEARCH = "SELECT * FROM BOOKS WHERE BOOK_ID=?";
 	private String BOOKTITLE_SEARCH = "SELECT * FROM BOOKS WHERE TITLE=?";
 	private String BOOKAUTHOR_SEARCH = "SELECt * FROM BOOKS WHERE AUTHOR=?";
+	private String BOOKDUPL_LIST = "SELECT * FROM (SELECT * FROM BOOKS WHERE TITLE = ?) WHERE DUPL != ?";
 	
 	//출력테스트용 query
 	private String BOOK_GET = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
@@ -84,8 +85,6 @@ public class BooksDAO {
 	// 도서 정보 검색(도서 목록 검색 오버로딩)
 	public List<BooksVO> getBooksList(String searchfield, String searchtext){
 		List<BooksVO> bookList = new ArrayList<BooksVO>();
-		System.out.println("getBooksList() 실행, 전달받은 searchfield : " +searchfield);
-		System.out.println("getBooksList() 실행, 전달받은 searchtext : " +searchtext);
 		try {
 			conn = JDBCUtil.getConnection();
 			if(searchfield.equals("bookId")) {
@@ -119,10 +118,38 @@ public class BooksDAO {
 			JDBCUtil.close(rs, stmt, conn);
 		}
 		
-		
 		return bookList;
 	}
  
+	//도서 복본 검색
+	public List<BooksVO> getBooksList(int book_dupl, String book_title){
+		List<BooksVO> bookList = new ArrayList<BooksVO>();
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(BOOKDUPL_LIST);
+			stmt.setString(1, book_title);
+			stmt.setInt(2, book_dupl);
+			
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				BooksVO book = new BooksVO();
+				book.setBook_id(rs.getString("BOOK_ID"));
+				book.setDupl(rs.getInt("DUPL"));
+				book.setTitle(rs.getString("TITLE"));
+				book.setIsbn(rs.getString("ISBN"));
+				book.setAuthor(rs.getString("AUTHOR"));
+				book.setIn_dt(rs.getDate("IN_DT"));
+				bookList.add(book);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(rs, stmt, conn);
+		}
+		
+		return bookList;
+	}
 	
 	
 }

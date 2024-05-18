@@ -2,18 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.library.web.books.BooksDAO"%>
 <%@ page import="com.library.web.books.BooksVO"%>
+<%@ page import="java.util.List"%>
 <%--선택한 도서의 조회 기능
-	도서의 상태 및 이력을 조회 (대여중인지 대여가능인지, 도서의 정보, )
+	도서의 상태 및 이력을 조회 (대여중인지 대여가능인지, 도서의 정보, 등)
 --%>
 <%
 String viewBookId = request.getParameter("bookID");
-System.out.println(viewBookId);
+String userRole = (String) request.getSession().getAttribute("ROLE");
 
 BooksDAO dao = new BooksDAO();
 BooksVO vo = new BooksVO();
-vo.setBook_id(viewBookId);
 
+//도서 검색 - 도서 번호
+vo.setBook_id(viewBookId);
 BooksVO book = dao.getBook(vo);
+
+//복본 검색 - 현재도서의 복본번호, 제목
+List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle());
+
+//BOOKS와 RENT 테이블 조인정보
+
 %>
 <!DOCTYPE html>
 <html>
@@ -58,14 +66,6 @@ BooksVO book = dao.getBook(vo);
 				<div class="text-end col-3">복본번호 :</div>
 				<div class="col-9"><%=book.getDupl() %></div>
 			</div>
-			
-			
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">해당 도서의 RENT정보 출력란</li>
-				<li class="list-group-item">해당 도서의 RENT정보 출력란</li>
-				<li class="list-group-item">해당 도서의 RENT정보 출력란</li>
-				<li class="list-group-item">해당 도서의 RENT정보 출력란</li>
-			</ul>
 		</div>
 
 	</div>
@@ -85,22 +85,22 @@ BooksVO book = dao.getBook(vo);
 				</tr>
 			</thead>
 			<tbody>
+				<%--book의 title과 같고 dupl과 다른 도서 --%>
+				<%for(BooksVO book_dupl : bookDuplicates){ %>
 				<tr>
-					<td><%=book.getBook_id()%></td>
-					<td><%=book.getDupl()%></td>
-					<td><%=book.getTitle()%></td>
+					<td><%=book_dupl.getBook_id()%></td>
+					<td><%=book_dupl.getDupl()%></td>
+					<td><%=book_dupl.getTitle()%></td>
 					<td>Y<!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
 					<td>MM/DD<!-- RENT테이블의 RET_DT컬럼이 들어갈예정 --></td>
 				</tr>
+				<%} %>
 			</tbody>
 		</table>
 	</div>
 	
 	<%--세션의 ROLE 값이 ADMIN이면 해당 BOOK_ID 에 대한 RENT 내역이 나오고 ADMIN이 아니라면 RENT내역 불필요--%>
-	<%
-		String userRole = (String) request.getSession().getAttribute("ROLE"); 
-		
-	%>
+	
 	<div class="container align-items-center justify-content-center mt-3 p-0"
 		style="width: 60%;">
 		<h5>
@@ -109,21 +109,25 @@ BooksVO book = dao.getBook(vo);
 		<table class="table table-striped table-top-border">
 			<thead>
 				<tr>
+					<th>대출반납번호</th>
 					<th>도서번호</th>
-					<th>복본번호</th>
-					<th>제목</th>
+					<th>교번</th>
+					<th>대출일</th>
+					<th>반납일</th>
 					<th>대출가능여부</th>
-					<th>반납예정일</th>
 				</tr>
 			</thead>
 			<tbody>
+				<%if(userRole.equals("ADMIN")){%>	<%-- null일경우 오류페이지출력 해결필요 --%>
 				<tr>
-					<td><%=book.getBook_id()%></td>
-					<td><%=book.getDupl()%></td>
-					<td><%=book.getTitle()%></td>
-					<td>Y<!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
 					<td>MM/DD<!-- RENT테이블의 RET_DT컬럼이 들어갈예정 --></td>
+					<td>Y<!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
 				</tr>
+				<%} %>
 			</tbody>
 		</table>
 	</div>

@@ -17,7 +17,6 @@
 	if(attribute == null){
 		bookList = bookDAO.getBooksList();
 	}else{
-		System.out.println("attribute has something");
 		bookList = (List<BooksVO>) attribute;
 	}
 	
