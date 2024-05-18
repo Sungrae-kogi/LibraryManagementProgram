@@ -20,22 +20,11 @@
 		border-top: 3px solid black;
 	}
 	
-</style>	
-	
+</style>
 <nav class="navbar navbar-dark bg-dark p-1 fixed-top">
   <div class="container-fluid">
   	<a class="navbar-brand" href="/DaejinTest1/index.jsp"><%=request.getSession().getAttribute("ROLE") %></a>
     <form class="d-flex" action="searchBooksProcess.jsp" method="get">
-    	<!--  
-    	<select name="searchField" id="selectoption">
-    		<option value="all">전체</option>
-    		<option value="bookId">도서 번호</option>
-    		<option value="bookTitle">제목</option>
-    		<option value="bookAuthor">저자</option>
-    	</select>
-      <input class="form-control me-2" type="text" name="searchText" placeholder="Search" aria-label="Search">
-      <button type="submit" class="btn btn-secondary">Search</button>
-      -->
     </form>
   </div>
 </nav>

@@ -32,12 +32,7 @@ public class BooksDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			
-			stmt = conn.prepareStatement(sql);
-			
-			//String sql2 = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
-//			stmt = conn.prepareStatement(sql2);
-//			stmt.setString(1, vo.getBook_id());
-						
+			stmt = conn.prepareStatement(sql);			
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {

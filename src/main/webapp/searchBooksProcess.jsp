@@ -22,17 +22,6 @@ BooksVO vo = new BooksVO();
 //BooksDAO에서 오버로딩한 getBooksList 호출 -> 검색조건에 맞는 데이터를 불러옴
 List<BooksVO> bookList = dao.getBooksList(searchfield,searchtext);
 
-/*
-for (BooksVO book : bookList) {
-	System.out.print("BookId : " + book.getBook_id());
-	System.out.print("Dupl : " + book.getDupl());
-	System.out.print("Title : " + book.getTitle());
-	System.out.print("Isbn : " + book.getIsbn());
-	System.out.print("Author : " + book.getAuthor());
-	System.out.println("In_dt : " + book.getIn_dt());
-}
-*/
-
 request.setAttribute("searchedBookList", bookList);
 RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 dispatcher.forward(request, response);
