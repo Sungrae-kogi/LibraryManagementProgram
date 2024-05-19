@@ -118,7 +118,7 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle())
 				</tr>
 			</thead>
 			<tbody>
-				<%if(userRole.equals("ADMIN")){%>	<%-- null일경우 오류페이지출력 해결필요 --%>
+				<%if("ADMIN".equals(userRole)){%>	<%-- null일경우 오류페이지출력 해결필요 --%>
 				<tr>
 					<td>1</td>
 					<td>1</td>

@@ -17,6 +17,7 @@ public class JDBCUtil {
 			//2. 커넥션 연결		**주의!!!!** 노트북에서는 1525 port사용중 회사에서는 1521 이거때문에 한참시간날림 오고가고 작업할때 확인필수
 			String jdbcUrl = "jdbc:oracle:thin:@localhost:1525:orcl";
 			conn = DriverManager.getConnection(jdbcUrl, "c##sungrae", "1234");
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
