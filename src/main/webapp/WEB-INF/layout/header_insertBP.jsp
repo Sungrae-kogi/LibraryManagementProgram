@@ -13,7 +13,7 @@
 <style>
 	.insertBook {
 		margin-top: 60px;
-		width: 60%;
+		width: 40%;
 	}
 </style>
 

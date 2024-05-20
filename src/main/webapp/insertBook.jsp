@@ -11,12 +11,11 @@
 <body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/layout/header_insertBP.jsp"%>
-	<div
-		class="insertBook container align-items-center justify-content-center">
+	<div class="insertBook container">
 		<div class="row">
 			<h2>신규 도서 입력</h2>
 			<hr>
-			<form action="" class="needs-validation" method="post" novalidate>
+			<form action="insertBookProcess.jsp" class="needs-validation" method="post" novalidate>
 				<label for="BookId" class="form-label">도서 번호</label>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Bookid"
@@ -26,33 +25,36 @@
 				<label for="Dupl" class="form-label">복본 번호</label>
 				<div class="input-group mb-3">
 					<input type="number" class="form-control" placeholder="0" id="Dupl"
-						name="DUPL">
+						min="0" max="99" name="DUPL">
+					<div class="invalid-feedback">0이상 100미만의 숫자만 입력하세요.</div>
 				</div>
 				<label for="Title" class="form-label">책 제목</label>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Title"
-						id="Title" name="TITLE">
+						id="Title" name="TITLE" required>
 					<div class="invalid-feedback">책 제목을 입력하세요.</div>
 				</div>
 				<label for="Isbn" class="form-label">ISBN</label>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Isbn"
-						id="Isbn" name="ISBN">
+						id="Isbn" name="ISBN" required>
 					<div class="invalid-feedback">ISBN번호를 입력하세요.</div>
 				</div>
 				<label for="Author" class="form-label">저자</label>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Author"
-						id="Author" name="AUTHOR">
+						id="Author" name="AUTHOR" required>
 					<div class="invalid-feedback">저자를 입력하세요.</div>
 				</div>
 				<label for="InDt" class="form-label">수서일</label>
 				<div class="input-group mb-3">
 					<input type="date" class="form-control" placeholder="Indt"
-						id="InDt" name="IN_DT">
+						id="InDt" name="IN_DT" required>
 					<div class="invalid-feedback">수서일을 입력하세요.</div>
 				</div>
-				<button class="btn btn-primary" type="submit">입력</button>
+				<div class="d-flex flex-row-reverse">
+				<button class="btn btn-primary text-right" type="submit">입력</button>
+				</div>
 			</form>
 		</div>
 	</div>
