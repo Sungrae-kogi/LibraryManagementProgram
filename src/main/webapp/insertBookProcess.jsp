@@ -14,7 +14,6 @@
 	
 	//String 타입이 아닌 Date타입으로 변경하여 전달해야 오라클에서 적용이가능. java.sql.Date 클래스를 사용
 	Date sql_indate = Date.valueOf(indate);
-	System.out.println("sql-indate : "+sql_indate);
 	
 	BooksDAO dao = new BooksDAO();
 	dao.InsertBook(bookid,dupl,title,isbn,author,sql_indate);

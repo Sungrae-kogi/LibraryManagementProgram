@@ -1,4 +1,10 @@
 https://all-record.tistory.com/112
 
 날짜 정보를 입력해야 하는 경우 자바에서 String 타입이 아닌 Date 타입으로 값을 넘겨야 오라클에 적용이된다.
-java.sql.Date  패키지를 import
+java.sql.Date  패키지를 import해야만 함 java.util.Date 도 있지만 이거와 다르니까 주의.
+
+java.sql.Date의 valueOf(String s) 메소드를 이용하여 Date 타입으로 변환한다.
+ex) Date sql_date = java.sql.Date.valueOf(date); 이렇게 사용
+
+여기서 String 타입인 date는 'YYYY-MM-DD'의 날짜 형식으로 전달되어야만 하는 제약사항이 있다, 다른 형태일시 IllegalArgumentException 오류
++ <input type="date"> 태그에서 전달받은 문자열은 자동으로 'YYYY-MM-DD'의 날짜 형식으로 되어있음.

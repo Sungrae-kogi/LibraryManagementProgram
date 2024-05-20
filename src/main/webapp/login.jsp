@@ -22,7 +22,7 @@ String res = (String) request.getAttribute("loginErr");
 </head>
 <body>
 	<div class="container text-center main_div ">
-		<h1 class="h3 mb-5 fw-normal">Please sign in</h1>
+		<h1 class="h3 mb-5 fw-normal">도서 대여 프로그램</h1>
 		<!-- 로그인정보 컬럼명 : EMPNO(교번) PWD(비밀번호) -->
 		<form action="loginProcess.jsp" method="post"
 			class="w-100 form-floating mb-1">
@@ -41,9 +41,9 @@ String res = (String) request.getAttribute("loginErr");
 				</div>
 			</div>
 			<%} %>
-			<button class="w-100 btn btn-lg btn-primary mb-1" type="submit">로그인</button>
+			<button class="w-100 btn btn-lg btn-secondary mb-1" type="submit">로그인</button>
 		</form>
-		<a href="signup.jsp" class="w-100 btn btn-lg btn-primary">회원가입</a>
+		<a href="signup.jsp" class="w-100 btn btn-lg btn-secondary">회원가입</a>
 	</div>
 
 

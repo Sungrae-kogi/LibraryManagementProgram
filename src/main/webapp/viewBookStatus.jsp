@@ -143,8 +143,10 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle())
 	<div class="container d-flex justify-content-center" style="width: 60%">
 		<button type="button" class="btn btn-outline-dark mx-1">대출</button>
 		<button type="button" class="btn btn-outline-dark mx-1">반납</button>
+		<%if("ADMIN".equals(userRole)){ %>
 		<button type="button" class="btn btn-outline-dark mx-1">수정</button>
 		<button type="button" class="btn btn-outline-dark mx-1">삭제</button>
+		<%} %>
 	</div>
 
 </body>
