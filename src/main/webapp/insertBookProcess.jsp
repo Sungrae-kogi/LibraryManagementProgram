@@ -2,26 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.library.web.books.BooksDAO"%>
 <%@ page import="com.library.web.books.BooksVO"%>
-<%@ page import="java.time.LocalDate"%>
-<%@ page import="java.time.format.DateTimeParseException" %>
 <%@ page import="java.sql.*" %>
 <%
-	LocalDate indt = null;
 	//insertBook.jsp에서 전달받은 데이터
 	String bookid = request.getParameter("BOOK_ID");
 	int dupl = Integer.parseInt(request.getParameter("DUPL"));
 	String title = request.getParameter("TITLE");
 	String isbn = request.getParameter("ISBN");
 	String author = request.getParameter("AUTHOR");
+	String indate = request.getParameter("IN_DT");
 	
-	//서버 측 폼 데이터 검사의 일부
-	try{
-		indt = LocalDate.parse(request.getParameter("IN_DT"));
-	}catch(DateTimeParseException e){
-		System.out.println("INDT 파싱 중 오류");
-	}
+	//String 타입이 아닌 Date타입으로 변경하여 전달해야 오라클에서 적용이가능. java.sql.Date 클래스를 사용
+	Date sql_indate = Date.valueOf(indate);
+	System.out.println("sql-indate : "+sql_indate);
 	
+	BooksDAO dao = new BooksDAO();
+	dao.InsertBook(bookid,dupl,title,isbn,author,sql_indate);
 	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+	dispatcher.forward(request,response);
 %>
 
 <!DOCTYPE html>

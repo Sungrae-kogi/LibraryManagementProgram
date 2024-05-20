@@ -1,6 +1,7 @@
 package com.library.web.books;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -154,6 +155,22 @@ public class BooksDAO {
 	}
 	
 	//도서 입력
-	
+	public void InsertBook(String bookid, int dupl, String title, String isbn, String author, Date indt) {
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(BOOK_INSERT);
+			stmt.setString(1, bookid);
+			stmt.setInt(2, dupl);
+			stmt.setString(3, title);
+			stmt.setString(4, isbn);
+			stmt.setString(5, author);
+			stmt.setDate(6, indt);
+			stmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(stmt, conn);
+		}
+	}
 	
 }

@@ -1,0 +1,4 @@
+https://all-record.tistory.com/112
+
+날짜 정보를 입력해야 하는 경우 자바에서 String 타입이 아닌 Date 타입으로 값을 넘겨야 오라클에 적용이된다.
+java.sql.Date  패키지를 import
