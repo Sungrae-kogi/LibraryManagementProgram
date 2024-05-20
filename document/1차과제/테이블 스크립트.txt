@@ -35,6 +35,8 @@ COMMENT ON COLUMN BOOKS.IN_DT IS '수서일';
 
 
 3. 대출반납
+
+
 //BOOK 과 MEMBER 사이에 RENT 가 발생
 CREATE TABLE RENT
 (

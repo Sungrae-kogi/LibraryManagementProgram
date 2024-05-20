@@ -22,6 +22,7 @@ session.setAttribute("searchText", searchtext);
 //BooksDAO에서 오버로딩한 getBooksList 호출 -> 검색조건에 맞는 데이터를 불러옴
 List<BooksVO> bookList = dao.getBooksList(searchfield,searchtext);
 
+//HttpServletRequest 객체는 forward 메소드의 매개변수로 전달되며 서블릿 간의 정보공유가 가능 - document폴더의 '정보공유객체.txt'참고
 request.setAttribute("searchedBookList", bookList);
 RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 dispatcher.forward(request, response);
