@@ -17,10 +17,12 @@ public class BooksDAO {
 
 	// Books 관련 SQL 명령어
 	private String BOOKS_LIST = "SELECT * FROM BOOKS";
-	private String BOOKID_SEARCH = "SELECT * FROM BOOKS WHERE BOOK_ID=?";
-	private String BOOKTITLE_SEARCH = "SELECT * FROM BOOKS WHERE TITLE=?";
-	private String BOOKAUTHOR_SEARCH = "SELECt * FROM BOOKS WHERE AUTHOR=?";
-	private String BOOKDUPL_LIST = "SELECT * FROM (SELECT * FROM BOOKS WHERE TITLE = ?) WHERE DUPL != ?";
+	private String BOOK_IDSEARCH = "SELECT * FROM BOOKS WHERE BOOK_ID=?";
+	private String BOOK_TITLESEARCH = "SELECT * FROM BOOKS WHERE TITLE=?";
+	private String BOOK_AUTHORSEARCH = "SELECt * FROM BOOKS WHERE AUTHOR=?";
+	private String BOOK_DUPLLIST = "SELECT * FROM (SELECT * FROM BOOKS WHERE TITLE = ?) WHERE DUPL != ?";
+	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, ?, ?, ?, ?, ?)";
+	
 	
 	//출력테스트용 query
 	private String BOOK_GET = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
@@ -88,13 +90,13 @@ public class BooksDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			if(searchfield.equals("bookId")) {
-				stmt = conn.prepareStatement(BOOKID_SEARCH);
+				stmt = conn.prepareStatement(BOOK_IDSEARCH);
 				stmt.setString(1, searchtext);
 			}else if(searchfield.equals("bookTitle")) {
-				stmt = conn.prepareStatement(BOOKTITLE_SEARCH);
+				stmt = conn.prepareStatement(BOOK_TITLESEARCH);
 				stmt.setString(1, searchtext);
 			}else if(searchfield.equals("bookAuthor")) {
-				stmt = conn.prepareStatement(BOOKAUTHOR_SEARCH);
+				stmt = conn.prepareStatement(BOOK_AUTHORSEARCH);
 				stmt.setString(1, searchtext);
 			}else {
 				//모든 도서 검색조건
@@ -126,7 +128,7 @@ public class BooksDAO {
 		List<BooksVO> bookList = new ArrayList<BooksVO>();
 		try {
 			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOOKDUPL_LIST);
+			stmt = conn.prepareStatement(BOOK_DUPLLIST);
 			stmt.setString(1, book_title);
 			stmt.setInt(2, book_dupl);
 			
@@ -150,6 +152,8 @@ public class BooksDAO {
 		
 		return bookList;
 	}
+	
+	//도서 입력
 	
 	
 }

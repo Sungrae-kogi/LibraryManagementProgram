@@ -22,10 +22,6 @@
 	}
 	
 	
-	System.out.println("bookid : " + bookid);
-	System.out.println("dupl : " + dupl);
-	System.out.println("title : " + title);
-	System.out.println("indt : " + indt);
 %>
 
 <!DOCTYPE html>
