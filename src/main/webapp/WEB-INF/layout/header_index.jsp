@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	//검색 기록 정보 획득
+	String searchField = (String) session.getAttribute("searchField");
+	String searchText = (String) session.getAttribute("searchText");
+%>    
+    
 <style type="text/css">
 	#selectoption {
 		border-radius: 5px;
@@ -35,12 +41,36 @@
     <a class="navbar-brand"><%=request.getSession().getAttribute("ROLE") %></a>
     <form class="d-flex" action="searchBooksProcess.jsp" method="get">
     	<select name="searchField" id="selectoption">
+    		<%if(searchField.equals("all")){ %>
+    		<option value="all" selected="selected">전체</option>
+    		<option value="bookId">도서 번호</option>
+    		<option value="bookTitle">제목</option>
+    		<option value="bookAuthor">저자</option>
+    		<%}else if(searchField.equals("bookId")){ %>
+    		<option value="all">전체</option>
+    		<option value="bookId" selected="selected">도서 번호</option>
+    		<option value="bookTitle">제목</option>
+    		<option value="bookAuthor">저자</option>
+    		<%}else if(searchField.equals("bookTitle")){ %>
+    		<option value="all">전체</option>
+    		<option value="bookId">도서 번호</option>
+    		<option value="bookTitle" selected="selected">제목</option>
+    		<option value="bookAuthor">저자</option>
+    		<%}else if(searchField.equals("bookAuthor")){ %>
+    		<option value="all">전체</option>
+    		<option value="bookId">도서 번호</option>
+    		<option value="bookTitle">제목</option>
+    		<option value="bookAuthor" selected="selected">저자</option>
+    		<%}else{ %>
     		<option value="all">전체</option>
     		<option value="bookId">도서 번호</option>
     		<option value="bookTitle">제목</option>
     		<option value="bookAuthor">저자</option>
+    		<%} %>
     	</select>
-      <input class="form-control me-2" type="text" name="searchText" placeholder="Search" aria-label="Search">
+    	<%if(searchText != null){ %>
+      	<input class="form-control me-2" type="text" name="searchText" placeholder="Search" aria-label="Search" value="<%=searchText %>">
+      	<%} %>
       <button type="submit" class="btn btn-secondary">Search</button>
     </form>
   </div>

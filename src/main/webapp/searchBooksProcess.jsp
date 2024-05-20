@@ -12,12 +12,12 @@
 String searchfield = request.getParameter("searchField");
 String searchtext = request.getParameter("searchText");
 
-//넘어오는거 확인 완료
-System.out.println("searchfield : " + searchfield);
-System.out.println("searchtext : " + searchtext);
-
 BooksDAO dao = new BooksDAO();
 BooksVO vo = new BooksVO();
+
+//검색 기록 정보 유지
+session.setAttribute("searchField", searchfield);
+session.setAttribute("searchText", searchtext);
 
 //BooksDAO에서 오버로딩한 getBooksList 호출 -> 검색조건에 맞는 데이터를 불러옴
 List<BooksVO> bookList = dao.getBooksList(searchfield,searchtext);
