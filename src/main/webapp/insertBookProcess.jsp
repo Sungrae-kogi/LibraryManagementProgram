@@ -10,13 +10,21 @@
 	String title = request.getParameter("TITLE");
 	String isbn = request.getParameter("ISBN");
 	String author = request.getParameter("AUTHOR");
-	String indate = request.getParameter("IN_DT");
 	
 	//String 타입이 아닌 Date타입으로 변경하여 전달해야 오라클에서 적용이가능. java.sql.Date 클래스를 사용
+	String indate = request.getParameter("IN_DT");
 	Date sql_indate = Date.valueOf(indate);
 	
 	BooksDAO dao = new BooksDAO();
-	dao.InsertBook(bookid,dupl,title,isbn,author,sql_indate);
+	BooksVO vo = new BooksVO();
+	vo.setBook_id(bookid);
+	vo.setDupl(dupl);
+	vo.setTitle(title);
+	vo.setIsbn(isbn);
+	vo.setAuthor(author);
+	vo.setIn_dt(sql_indate);
+	
+	dao.insertBook(vo);
 	
 	RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 	dispatcher.forward(request,response);

@@ -5,6 +5,12 @@
 <%@ page import="java.util.List"%>
 
 <%
+	if("ADMIN".equals((String) request.getSession().getAttribute("ROLE")) || "USER".equals((String) request.getSession().getAttribute("ROLE"))){
+	
+	}else{
+		response.sendRedirect("login.jsp");
+	}
+
 	BooksVO vo = new BooksVO();
 
 	BooksDAO bookDAO = new BooksDAO();

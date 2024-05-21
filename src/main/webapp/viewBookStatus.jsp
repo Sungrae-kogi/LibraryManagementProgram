@@ -7,8 +7,16 @@
 	도서의 상태 및 이력을 조회 (대여중인지 대여가능인지, 도서의 정보, 등)
 --%>
 <%
+
 String viewBookId = request.getParameter("bookID");
 String userRole = (String) request.getSession().getAttribute("ROLE");
+//세션이 만료되었으면 로그인화면으로 리다이렉트, 시스템 알람메시지 출력하면 좋을거같음. jQuery?
+if("ADMIN".equals(userRole) || "USER".equals(userRole)){
+	
+}else{
+	response.sendRedirect("login.jsp");
+}
+
 
 BooksDAO dao = new BooksDAO();
 BooksVO vo = new BooksVO();
@@ -141,12 +149,13 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle())
 	</div>
 	<!-- (대출, 반납)은 도서 상태에 따라 하나만 출력 (수정, 삭제)는 ROLE이 ADMIN인 경우에만 -->
 	<div class="container d-flex justify-content-center" style="width: 60%">
-		<button type="button" class="btn btn-outline-dark mx-1">대출</button>
-		<button type="button" class="btn btn-outline-dark mx-1">반납</button>
+		<button type="button" class="btn btn-outline-dark mx-2">대출</button>
+		<button type="button" class="btn btn-outline-dark mx-2">반납</button>
 		<%if("ADMIN".equals(userRole)){ %>
-		<button type="button" class="btn btn-outline-dark mx-1">수정</button>
-		<button type="button" class="btn btn-outline-dark mx-1">삭제</button>
+		<button type="button" class="btn btn-outline-dark mx-2">수정</button>
+		<a href="deleteBookProcess.jsp?bookID=<%=viewBookId %>" class="btn btn-secondary mx-2" role="button">삭제</a>
 		<%} %>
+		<a href="index.jsp" class="btn btn-secondary mx-2" role="button" aria-disabled="true">확인</a>
 	</div>
 
 </body>

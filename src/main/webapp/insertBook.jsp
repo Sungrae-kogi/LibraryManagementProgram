@@ -54,6 +54,7 @@
 				</div>
 				<div class="d-flex flex-row-reverse">
 				<button class="btn btn-primary text-right" type="submit">입력</button>
+				<a href="index.jsp" class="btn btn-secondary mx-3" role="button">취소</a>
 				</div>
 			</form>
 		</div>

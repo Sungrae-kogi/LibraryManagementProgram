@@ -4,8 +4,9 @@
 //검색 기록 정보 획득
 String searchField = (String) session.getAttribute("searchField");
 String searchText = (String) session.getAttribute("searchText");
+
+//세션 정보 - 유저 권한
 String userRole = (String) request.getSession().getAttribute("ROLE");
-System.out.println("userRole : " + userRole);
 %>
 
 <style type="text/css">
@@ -43,8 +44,8 @@ System.out.println("userRole : " + userRole);
 	<div class="container-fluid">
 		<ul class="nav">
 			<li class="nav-item"><a class="nav-link active fw-bold text-white"
-				aria-current="page" href="#"><%=request.getSession().getAttribute("ROLE")%></a></li>
-			<li class="nav-item"><a class="nav-link text-white fw-light" href="#">Logout</a></li>
+				aria-current="page" href="#"><%=userRole%></a></li>
+			<li class="nav-item"><a class="nav-link text-white fw-light" href="logout.jsp">Logout</a></li>
 			<%if("ADMIN".equals(userRole)){ %>
 			<li class="nav-item"><a class="nav-link text-white fw-light" href="insertBook.jsp">Add</a>
 			<%} %>

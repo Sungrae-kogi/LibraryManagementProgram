@@ -23,6 +23,7 @@ public class BooksDAO {
 	private String BOOK_AUTHORSEARCH = "SELECt * FROM BOOKS WHERE AUTHOR=?";
 	private String BOOK_DUPLLIST = "SELECT * FROM (SELECT * FROM BOOKS WHERE TITLE = ?) WHERE DUPL != ?";
 	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, ?, ?, ?, ?, ?)";
+	private String BOOK_DELETE = "DELETE FROM BOOKS WHERE BOOK_ID=?";
 	
 	
 	//출력테스트용 query
@@ -155,21 +156,37 @@ public class BooksDAO {
 	}
 	
 	//도서 입력
-	public void InsertBook(String bookid, int dupl, String title, String isbn, String author, Date indt) {
+	public void insertBook(BooksVO vo) {
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOOK_INSERT);
-			stmt.setString(1, bookid);
-			stmt.setInt(2, dupl);
-			stmt.setString(3, title);
-			stmt.setString(4, isbn);
-			stmt.setString(5, author);
-			stmt.setDate(6, indt);
+			stmt.setString(1, vo.getBook_id());
+			stmt.setInt(2, vo.getDupl());
+			stmt.setString(3, vo.getTitle());
+			stmt.setString(4, vo.getIsbn());
+			stmt.setString(5, vo.getAuthor());
+			stmt.setDate(6, vo.getIn_dt());
 			stmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(stmt, conn);
+		}
+	}
+	
+	//도서 삭제
+	public void deleteBook(String bookid) {
+		int res = 0;
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(BOOK_DELETE);
+			stmt.setString(1, bookid);
+			stmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(stmt, conn);
+			
 		}
 	}
 	
