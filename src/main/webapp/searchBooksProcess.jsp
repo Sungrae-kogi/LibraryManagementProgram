@@ -28,13 +28,3 @@ RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 dispatcher.forward(request, response);
 
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Search Book</title>
-</head>
-<body>
-
-</body>
-</html>
