@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class BooksDAO {
 	private String BOOK_AUTHORSEARCH = "SELECt * FROM BOOKS WHERE AUTHOR=?";
 	private String BOOK_DUPLLIST = "SELECT * FROM (SELECT * FROM BOOKS WHERE TITLE = ?) WHERE DUPL != ?";
 	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, ?, ?, ?, ?, ?)";
+	private String BOOK_UPDATE = "UPDATE BOOKS SET BOOK_ID = ?, DUPL = ?, TITLE = ?, ISBN = ?, AUTHOR = ?, IN_DT = ? WHERE BOOK_ID = ?";
 	private String BOOK_DELETE = "DELETE FROM BOOKS WHERE BOOK_ID=?";
 	
 	
@@ -31,17 +33,15 @@ public class BooksDAO {
 	
 	
 	// 도서 하나 검색
-	public BooksVO getBook(BooksVO vo) {
+	public BooksVO getBook(String bookid) {
 		BooksVO book = null;
-		String sql = "SELECT * FROM BOOKS WHERE BOOK_ID='"+vo.getBook_id()+"'";
 		try {
 			conn = JDBCUtil.getConnection();
-			
-			stmt = conn.prepareStatement(sql);			
+			stmt = conn.prepareStatement(BOOK_IDSEARCH);
+			stmt.setString(1, bookid);
 			rs = stmt.executeQuery();
-			
 			while(rs.next()) {
-				book = new BooksVO(); 
+				book = new BooksVO();
 				book.setBook_id(rs.getString("BOOK_ID"));
 				book.setDupl(rs.getInt("DUPL"));
 				book.setTitle(rs.getString("TITLE"));
@@ -49,13 +49,11 @@ public class BooksDAO {
 				book.setAuthor(rs.getString("AUTHOR"));
 				book.setIn_dt(rs.getDate("IN_DT"));
 			}
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(rs, stmt, conn);
 		}
-		
 		return book;
 	}
 	
@@ -174,9 +172,33 @@ public class BooksDAO {
 		}
 	}
 	
+	//도서 수정
+	public int updateBook(BooksVO vo) {
+		int result = -1;
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(BOOK_UPDATE);
+			
+			stmt.setString(1, vo.getBook_id());
+			stmt.setInt(2, vo.getDupl());
+			stmt.setString(3, vo.getTitle());
+			stmt.setString(4, vo.getIsbn());
+			stmt.setString(5, vo.getAuthor());
+			stmt.setDate(6, vo.getIn_dt());
+			stmt.setString(7, vo.getBook_id());
+			
+			result = stmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		return result;
+	}
+	
 	//도서 삭제
 	public void deleteBook(String bookid) {
-		int res = 0;
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOOK_DELETE);

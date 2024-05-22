@@ -19,11 +19,9 @@ if("ADMIN".equals(userRole) || "USER".equals(userRole)){
 
 
 BooksDAO dao = new BooksDAO();
-BooksVO vo = new BooksVO();
 
 //도서 검색 - 도서 번호
-vo.setBook_id(viewBookId);
-BooksVO book = dao.getBook(vo);
+BooksVO book = dao.getBook(viewBookId);
 
 //복본 검색 - 현재도서의 복본번호, 제목
 List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle());
@@ -152,7 +150,7 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle())
 		<button type="button" class="btn btn-outline-dark mx-2">대출</button>
 		<button type="button" class="btn btn-outline-dark mx-2">반납</button>
 		<%if("ADMIN".equals(userRole)){ %>
-		<button type="button" class="btn btn-outline-dark mx-2">수정</button>
+		<a href="updateBook.jsp?bookID=<%=viewBookId %>" class="btn btn-secondary mx-2" role="button">수정</a>
 		<a href="deleteBookProcess.jsp?bookID=<%=viewBookId %>" class="btn btn-secondary mx-2" role="button">삭제</a>
 		<%} %>
 		<a href="index.jsp" class="btn btn-secondary mx-2" role="button" aria-disabled="true">확인</a>
