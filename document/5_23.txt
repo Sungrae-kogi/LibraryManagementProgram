@@ -15,3 +15,6 @@
 			-> if(RET_DT가 있는데 BOR_DT < RET_DT 이면) -> 대출중, 따라서 대출불가
 			-> else if(RET_DT가 있는데 SYSDATE > RET_DT 이면) -> 반납기간 경과상태, 도서가 반납안된상태니 대출불가
 			-> else(이외의 모든상태들, 도서는 있는데 RENT 데이터는 없다, 도서가 있고 RENT 데이터도있는데 마지막 RENT 데이터가 반납이된상태) -> 대출가능상태
+			
+4. DAO를 사용하여 테이블에 대한 CRUD 작업을 하는데 RENT 테이블과 BOOKS 테이블의 데이터를 JOIN 해서 두 데이터를 어떻게 가져오는지
+https://stackoverflow.com/questions/10793915/how-to-create-a-dao-for-join-tables

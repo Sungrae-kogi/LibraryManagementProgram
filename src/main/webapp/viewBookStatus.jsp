@@ -22,12 +22,18 @@ BooksDAO dao = new BooksDAO();
 
 //도서 검색 - 도서 번호
 BooksVO book = dao.getBook(viewBookId);
-System.out.println("book : " + book.getBook_id());
 
 //복본 검색 - 현재도서의 복본번호, 제목
 List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle());
 
+
+//5/23 테스트 코드
+List<BooksVO> bookDupl = dao.getDuplListBooks(book.getDupl(), book.getTitle());
+System.out.println("bookDupl : " + bookDupl);
+
 //BOOKS와 RENT 테이블 조인정보	- 소장사항에 반납예정일 정보 RENT.RET_DT 출력
+
+//해당 도서의 대출이력
 
 
 %>

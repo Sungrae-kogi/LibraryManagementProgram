@@ -26,6 +26,8 @@ public class BooksDAO {
 	private String BOOK_AUTHORSEARCH = "SELECT * FROM BOOKS WHERE AUTHOR=?";
 	//BOOKS, RENT 조인정보
 	private String BOOK_JOIN_RENT = "SELECT B.BOOK_ID, B.DUPL, B.TITLE, B.ISBN, B.AUTHOR, B.IN_DT, B.IS_RENTABLE, R.RET_DT FROM BOOKS B, RENT R WHERE B.BOOK_ID = R.BOOK_ID";
+	private String BOOK_TEST = "SELECT B.BOOK_ID, B.DUPL, B.TITLE, B.ISBN, B.AUTHOR, B.IN_DT, B.IS_RENTABLE, R.RET_DT FROM (SELECT * FROM BOOKS WHERE TITLE = ? AND DUPL != ?) B JOIN RENT R ON B.BOOK_ID = R.BOOK_ID";
+	private String BOOK_TTT = "SELECT * FROM BOOKS B, RENT R WHERE B.BOOK_ID = R.BOOK_ID";
 	
 	// BOOKS CRUD
 	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, ?, ?, ?, ?, ?)";
@@ -258,8 +260,41 @@ public class BooksDAO {
 			}
 		}
 		//대출가능상태가 아니면
+	
+	}
+	
+	//자신을 제외한 DUPL 번호를 가진, 동일한 TITLE 명을 가진 도서를 RENT 테이블의 RET_DT 값까지 포함한 BooksVO 리스트  - 테스트중
+	public List<BooksVO> getDuplListBooks(int book_dupl, String book_title){
+		List<BooksVO> bookList = new ArrayList<BooksVO>();
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(BOOK_TTT);
+			//stmt.setString(1, book_title);
+			//stmt.setInt(2, book_dupl);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				BooksVO book = new BooksVO();
+				book.setBook_id(rs.getString("BOOK_ID"));
+				book.setDupl(rs.getInt("DUPL"));
+				book.setTitle(rs.getString("TITLE"));
+				book.setIsbn(rs.getString("ISBN"));
+				book.setAuthor(rs.getString("AUTHOR"));
+				book.setIn_dt(rs.getDate("IN_DT"));
+				book.setIs_rentable(rs.getString("IS_RENTABLE"));
+				book.setRet_dt(rs.getDate("RET_DT"));
+				System.out.println("title : " +book.getTitle());
+				System.out.println("ret_dt : "+book.getRet_dt());
+				bookList.add(book);
+			}
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			JDBCUtil.close(rs, stmt, conn);
+		}
 		
 		
+		return bookList;
 	}
 	
 }
