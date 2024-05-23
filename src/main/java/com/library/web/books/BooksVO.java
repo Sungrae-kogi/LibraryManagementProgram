@@ -9,6 +9,8 @@ public class BooksVO {
 	private String isbn;
 	private String author;
 	private Date in_dt;
+	private String is_rentable;
+	private Date ret_dt;
 	
 	
 	public String getBook_id() {
@@ -46,6 +48,18 @@ public class BooksVO {
 	}
 	public void setIn_dt(Date in_dt) {
 		this.in_dt = in_dt;
+	}
+	public String getIs_rentable() {
+		return is_rentable;
+	}
+	public void setIs_rentable(String is_rentable) {
+		this.is_rentable = is_rentable;
+	}
+	public Date getRet_dt() {
+		return ret_dt;
+	}
+	public void setRet_dt(Date ret_dt) {
+		this.ret_dt = ret_dt;
 	}
 	
 	

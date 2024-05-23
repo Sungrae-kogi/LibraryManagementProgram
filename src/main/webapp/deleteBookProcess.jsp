@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.library.web.books.BooksDAO"%>
-<%@ page import="com.library.web.books.BooksVO"%>   
     
 <%
 	String deleteBookId = request.getParameter("bookID");

@@ -22,11 +22,14 @@ BooksDAO dao = new BooksDAO();
 
 //도서 검색 - 도서 번호
 BooksVO book = dao.getBook(viewBookId);
+System.out.println("book : " + book.getBook_id());
 
 //복본 검색 - 현재도서의 복본번호, 제목
 List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle());
 
-//BOOKS와 RENT 테이블 조인정보
+//BOOKS와 RENT 테이블 조인정보	- 소장사항에 반납예정일 정보 RENT.RET_DT 출력
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -98,7 +101,7 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle())
 					<td><%=book_dupl.getBook_id()%></td>
 					<td><%=book_dupl.getDupl()%></td>
 					<td><%=book_dupl.getTitle()%></td>
-					<td>Y<!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
+					<td><%=book_dupl.getIs_rentable()%><!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
 					<td>MM/DD<!-- RENT테이블의 RET_DT컬럼이 들어갈예정 --></td>
 				</tr>
 				<%
@@ -147,7 +150,7 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle())
 	</div>
 	<!-- (대출, 반납)은 도서 상태에 따라 하나만 출력 (수정, 삭제)는 ROLE이 ADMIN인 경우에만 -->
 	<div class="container d-flex justify-content-center" style="width: 60%">
-		<button type="button" class="btn btn-outline-dark mx-2">대출</button>
+		<a href="rentBookProcess.jsp?bookID=<%=viewBookId %>&empNo=<%=(String) session.getAttribute("EMPNO") %>" class="btn btn-secondary mx-2" role="button">대출</a>
 		<button type="button" class="btn btn-outline-dark mx-2">반납</button>
 		<%if("ADMIN".equals(userRole)){ %>
 		<a href="updateBook.jsp?bookID=<%=viewBookId %>" class="btn btn-secondary mx-2" role="button">수정</a>

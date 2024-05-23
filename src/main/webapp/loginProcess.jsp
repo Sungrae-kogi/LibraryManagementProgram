@@ -25,7 +25,8 @@
 			if(member.getPwd().equals(pwd)) {
 				//사용자 ROLE 정보를 세션에 저장 - forward로 전달해주므로 그냥 session.getAttribute()로는 접근이 불가, request.getSession().getAttribute()로 header.jsp에서 접근하여 사용가능했음
 				session.setAttribute("ROLE", member.getRole());
-				session.setMaxInactiveInterval(60*10);
+				session.setAttribute("EMPNO", member.getEmpno());
+				session.setMaxInactiveInterval(60*60*10);
 				
 				response.sendRedirect("index.jsp");
 			//pwd 불일치 -> 로그인화면

@@ -1,0 +1,5 @@
+forward는 request, response 객체를 유지하면서 다른 서블릿이나 JSP로 요청을 전달.
+redirect는 클라이언트 측에서 새로운 URL로 요청을 보내게 하므로 기존의 request, response 객체가 사라짐, 하지만 둘 다 세션 데이터는 유지되는 공통점이있음.
+
+*도서정보 insert,update,delete 처리를 완료한 후에는 전달했던 request의 정보들을 유지할 필요가 없으므로 redirect를 사용하여 화면전환을 하는것이 맞음.
+*세션 만료시 login.jsp로의 화면 전환은 기존 요청정보, 상태정보를 삭제해야하므로 redirect를 사용

@@ -24,7 +24,7 @@
 				</div>
 				<label for="Dupl" class="form-label">복본 번호</label>
 				<div class="input-group mb-3">
-					<input type="number" class="form-control" placeholder="0" id="Dupl"
+					<input type="number" class="form-control" placeholder="0~99" id="Dupl"
 						min="0" max="99" name="DUPL">
 					<div class="invalid-feedback">0이상 100미만의 숫자만 입력하세요.</div>
 				</div>
