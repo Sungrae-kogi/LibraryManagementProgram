@@ -20,6 +20,10 @@
 		border-top: 3px solid black;
 	}
 	
+	.table {
+		cursor: pointer;
+	}
+	
 </style>
 <nav class="navbar navbar-dark bg-dark p-1 fixed-top">
   <div class="container-fluid">

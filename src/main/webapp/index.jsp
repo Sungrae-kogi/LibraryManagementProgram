@@ -41,7 +41,6 @@
 	<table class="table table-striped table-hover">
 		<tr>
 			<th class="book_center">BOOK_ID</th>
-			<th class="book_center">DUPL</th>
 			<th>TITLE</th>
 			<th>ISBN</th>
 			<th>AUTHOR</th>
@@ -50,7 +49,6 @@
 		<%for(BooksVO book : bookList) {%>
 			<tr onclick="location.href='/DaejinTest1/viewBookStatus.jsp?bookID=<%=book.getBook_id()%>'">
 			<td class="book_center"><%=book.getBook_id() %></td>
-			<td class="book_center"><%=book.getDupl() %></td>
 			<td><%=book.getTitle() %></td>
 			<td><%=book.getIsbn() %></td>
 			<td><%=book.getAuthor() %></td>

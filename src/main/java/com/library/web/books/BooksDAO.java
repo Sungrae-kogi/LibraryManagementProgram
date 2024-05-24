@@ -16,13 +16,11 @@ public class BooksDAO {
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
-
 	// BOOKS 관련 SQL 명령어
 	// BOOKS 조회
-	private String BOOKS_LIST = "SELECT * FROM BOOKS";
-	private String BOOK_DUPLLIST = "SELECT * FROM (SELECT * FROM BOOKS WHERE TITLE = ?) WHERE DUPL != ?";
+	private String BOOKS_LIST = "SELECT * FROM BOOKS WHERE DUPL = 0";
 	private String BOOK_IDSEARCH = "SELECT * FROM BOOKS WHERE BOOK_ID=?";
-	private String BOOK_TITLESEARCH = "SELECT * FROM BOOKS WHERE TITLE=?";
+	private String BOOK_TITLESEARCH = "SELECT * FROM BOOKS WHERE TITLE=? ORDER BY BOOK_ID";
 	private String BOOK_AUTHORSEARCH = "SELECT * FROM BOOKS WHERE AUTHOR=?";
 	//BOOKS, RENT 조인정보
 	private String BOOK_JOIN_RENT = "SELECT B.BOOK_ID, B.DUPL, B.TITLE, B.ISBN, B.AUTHOR, B.IN_DT, B.IS_RENTABLE, R.RET_DT FROM BOOKS B, RENT R WHERE B.BOOK_ID = R.BOOK_ID";
@@ -30,7 +28,8 @@ public class BooksDAO {
 	private String BOOK_TTT = "SELECT * FROM BOOKS B, RENT R WHERE B.BOOK_ID = R.BOOK_ID";
 	
 	// BOOKS CRUD
-	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, ?, ?, ?, ?, ?)";
+	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, (SELECT NVL(MAX(DUPL),0)+1 FROM BOOKS WHERE TITLE = ?), ?, ?, ?, ?)";
+	
 	private String BOOK_GET = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
 	private String BOOK_UPDATE = "UPDATE BOOKS SET BOOK_ID = ?, DUPL = ?, TITLE = ?, ISBN = ?, AUTHOR = ?, IN_DT = ? WHERE BOOK_ID = ?";
 	private String BOOK_DELETE = "DELETE FROM BOOKS WHERE BOOK_ID=?";
@@ -137,13 +136,12 @@ public class BooksDAO {
 	}
  
 	//도서 복본 검색
-	public List<BooksVO> getBooksList(int book_dupl, String book_title){
+	public List<BooksVO> getBooksList(String book_title){
 		List<BooksVO> bookList = new ArrayList<BooksVO>();
 		try {
 			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOOK_DUPLLIST);
+			stmt = conn.prepareStatement(BOOK_TITLESEARCH);
 			stmt.setString(1, book_title);
-			stmt.setInt(2, book_dupl);
 			
 			rs = stmt.executeQuery();
 			while(rs.next()) {
@@ -173,11 +171,12 @@ public class BooksDAO {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOOK_INSERT);
 			stmt.setString(1, vo.getBook_id());
-			stmt.setInt(2, vo.getDupl());
+			stmt.setString(2, vo.getTitle());
 			stmt.setString(3, vo.getTitle());
 			stmt.setString(4, vo.getIsbn());
 			stmt.setString(5, vo.getAuthor());
 			stmt.setDate(6, vo.getIn_dt());
+			System.out.println("실행중");
 			stmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

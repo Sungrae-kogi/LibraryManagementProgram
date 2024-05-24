@@ -6,7 +6,7 @@
 <%
 	//insertBook.jsp에서 전달받은 데이터
 	String bookid = request.getParameter("BOOK_ID");
-	int dupl = Integer.parseInt(request.getParameter("DUPL"));
+	//int dupl = Integer.parseInt(request.getParameter("DUPL"));
 	String title = request.getParameter("TITLE");
 	String isbn = request.getParameter("ISBN");
 	String author = request.getParameter("AUTHOR");
@@ -18,7 +18,7 @@
 	BooksDAO dao = new BooksDAO();
 	BooksVO vo = new BooksVO();
 	vo.setBook_id(bookid);
-	vo.setDupl(dupl);
+	//vo.setDupl(dupl);
 	vo.setTitle(title);
 	vo.setIsbn(isbn);
 	vo.setAuthor(author);

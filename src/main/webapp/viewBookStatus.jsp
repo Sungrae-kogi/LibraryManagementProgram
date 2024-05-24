@@ -24,12 +24,11 @@ BooksDAO dao = new BooksDAO();
 BooksVO book = dao.getBook(viewBookId);
 
 //복본 검색 - 현재도서의 복본번호, 제목
-List<BooksVO> bookDuplicates = dao.getBooksList(book.getDupl(), book.getTitle());
+List<BooksVO> bookDuplicates = dao.getBooksList(book.getTitle());
 
 
 //5/23 테스트 코드
 List<BooksVO> bookDupl = dao.getDuplListBooks(book.getDupl(), book.getTitle());
-System.out.println("bookDupl : " + bookDupl);
 
 //BOOKS와 RENT 테이블 조인정보	- 소장사항에 반납예정일 정보 RENT.RET_DT 출력
 
@@ -88,7 +87,7 @@ System.out.println("bookDupl : " + bookDupl);
 		<h5>
 			<strong>소장사항</strong>
 		</h5>
-		<table class="table table-striped table-top-border">
+		<table class="table table-striped table-hover table-top-border">
 			<thead>
 				<tr>
 					<th>도서번호</th>
@@ -103,12 +102,16 @@ System.out.println("bookDupl : " + bookDupl);
 				<%
 				for (BooksVO book_dupl : bookDuplicates) {
 				%>
-				<tr>
+				<tr onclick="location.href='/DaejinTest1/viewBookStatus.jsp?bookID=<%=book_dupl.getBook_id()%>'">
 					<td><%=book_dupl.getBook_id()%></td>
 					<td><%=book_dupl.getDupl()%></td>
 					<td><%=book_dupl.getTitle()%></td>
 					<td><%=book_dupl.getIs_rentable()%><!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
-					<td>MM/DD<!-- RENT테이블의 RET_DT컬럼이 들어갈예정 --></td>
+					<%if("Y".equals(book_dupl.getIs_rentable())){ %>
+					<td></td>
+					<%}else{ %>
+					<td>MM/DD</td> <!-- RENT 테이블의 RET_DT 컬럼 -->
+					<%} %>
 				</tr>
 				<%
 				}

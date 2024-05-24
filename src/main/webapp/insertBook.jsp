@@ -22,12 +22,6 @@
 						id="BookId" name="BOOK_ID" required>
 					<div class="invalid-feedback">도서 번호를 입력하세요.</div>
 				</div>
-				<label for="Dupl" class="form-label">복본 번호</label>
-				<div class="input-group mb-3">
-					<input type="number" class="form-control" placeholder="0~99" id="Dupl"
-						min="0" max="99" name="DUPL">
-					<div class="invalid-feedback">0이상 100미만의 숫자만 입력하세요.</div>
-				</div>
 				<label for="Title" class="form-label">책 제목</label>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Title"
