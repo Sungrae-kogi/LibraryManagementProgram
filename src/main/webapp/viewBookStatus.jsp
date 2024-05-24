@@ -28,7 +28,12 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getTitle());
 
 
 //5/23 테스트 코드
-List<BooksVO> bookDupl = dao.getDuplListBooks(book.getDupl(), book.getTitle());
+List<BooksVO> bookDupl = dao.getDuplListBooks();
+for (BooksVO rentbook : bookDupl){
+	System.out.println("현재 도서 : " + rentbook.getTitle());
+	System.out.println("rentbook의 R.ret_dt = " +rentbook.getRet_dt());
+}
+
 
 //BOOKS와 RENT 테이블 조인정보	- 소장사항에 반납예정일 정보 RENT.RET_DT 출력
 
@@ -135,7 +140,6 @@ List<BooksVO> bookDupl = dao.getDuplListBooks(book.getDupl(), book.getTitle());
 					<th>교번</th>
 					<th>대출일</th>
 					<th>반납일</th>
-					<th>대출가능여부</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -149,7 +153,6 @@ List<BooksVO> bookDupl = dao.getDuplListBooks(book.getDupl(), book.getTitle());
 					<td>1</td>
 					<td>1</td>
 					<td>MM/DD<!-- RENT테이블의 RET_DT컬럼이 들어갈예정 --></td>
-					<td>Y<!-- 대출가능상태면 Y, 대출중이면 N로 --></td>
 				</tr>
 				<%
 				}

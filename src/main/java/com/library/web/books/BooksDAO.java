@@ -141,6 +141,7 @@ public class BooksDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOOK_TITLESEARCH);
+			//stmt = conn.prepareStatement(BOOK_TTT);
 			stmt.setString(1, book_title);
 			
 			rs = stmt.executeQuery();
@@ -262,8 +263,8 @@ public class BooksDAO {
 	
 	}
 	
-	//자신을 제외한 DUPL 번호를 가진, 동일한 TITLE 명을 가진 도서를 RENT 테이블의 RET_DT 값까지 포함한 BooksVO 리스트  - 테스트중
-	public List<BooksVO> getDuplListBooks(int book_dupl, String book_title){
+	//BOOKS 와 RENT 테이블 JOIN 출력 테스트, viewBookStatus.jsp 사용
+	public List<BooksVO> getDuplListBooks(){
 		List<BooksVO> bookList = new ArrayList<BooksVO>();
 		try {
 			conn = JDBCUtil.getConnection();
@@ -281,8 +282,6 @@ public class BooksDAO {
 				book.setIn_dt(rs.getDate("IN_DT"));
 				book.setIs_rentable(rs.getString("IS_RENTABLE"));
 				book.setRet_dt(rs.getDate("RET_DT"));
-				System.out.println("title : " +book.getTitle());
-				System.out.println("ret_dt : "+book.getRet_dt());
 				bookList.add(book);
 			}
 			
@@ -291,7 +290,6 @@ public class BooksDAO {
 		}finally {
 			JDBCUtil.close(rs, stmt, conn);
 		}
-		
 		
 		return bookList;
 	}
