@@ -28,7 +28,7 @@ public class BooksDAO {
 	private String BOOK_TTT = "SELECT * FROM BOOKS B, RENT R WHERE B.BOOK_ID = R.BOOK_ID";
 	
 	// BOOKS CRUD
-	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, (SELECT NVL(MAX(DUPL),0)+1 FROM BOOKS WHERE TITLE = ?), ?, ?, ?, ?)";
+	private String BOOK_INSERT = "INSERT INTO BOOKS(BOOK_ID, DUPL, TITLE, ISBN, AUTHOR, IN_DT) VALUES (?, (SELECT NVL(MAX(DUPL),-1)+1 FROM BOOKS WHERE TITLE = ?), ?, ?, ?, ?)";
 	
 	private String BOOK_GET = "SELECT * FROM BOOKS WHERE trim(BOOK_ID)=?";
 	private String BOOK_UPDATE = "UPDATE BOOKS SET BOOK_ID = ?, DUPL = ?, TITLE = ?, ISBN = ?, AUTHOR = ?, IN_DT = ? WHERE BOOK_ID = ?";
@@ -281,7 +281,7 @@ public class BooksDAO {
 				book.setAuthor(rs.getString("AUTHOR"));
 				book.setIn_dt(rs.getDate("IN_DT"));
 				book.setIs_rentable(rs.getString("IS_RENTABLE"));
-				book.setRet_dt(rs.getDate("RET_DT"));
+				
 				bookList.add(book);
 			}
 			

@@ -12,7 +12,6 @@ public class BooksVO {
 	private String author;
 	private Date in_dt;
 	private String is_rentable;
-	private Date ret_dt;
 	
 	//join 테이블
 	private RentVO rent;
@@ -61,15 +60,8 @@ public class BooksVO {
 		this.is_rentable = is_rentable;
 	}
 	
-	public Date getRet_dt() {
-		return ret_dt;
-	}
-	public void setRet_dt(Date ret_dt) {
-		this.ret_dt = ret_dt;
 	
 	
-	
-	}
 	public RentVO getRent() {
 		return rent;
 	}

@@ -31,7 +31,6 @@ List<BooksVO> bookDuplicates = dao.getBooksList(book.getTitle());
 List<BooksVO> bookDupl = dao.getDuplListBooks();
 for (BooksVO rentbook : bookDupl){
 	System.out.println("현재 도서 : " + rentbook.getTitle());
-	System.out.println("rentbook의 R.ret_dt = " +rentbook.getRet_dt());
 }
 
 
