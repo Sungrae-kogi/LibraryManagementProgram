@@ -9,10 +9,17 @@
 	String empno = request.getParameter("EMPNO");
 	String pwd = request.getParameter("PWD");
 	
-	MemberVO vo = new MemberVO();
-
-	vo.setEmpno(empno);	//사용자가 전달한 primary key
+	/*
+	24-07-07 수정사항
+	VO 객체는 불변객체이므로, Setter를 가지지 않아, 애초에 값을 부여하려면 생성자를 이용해 값을 지정해줘야 한다.
+	따라서 이 부분은 잘못된 코드로
+	MemberVO vo = new MemberVO(empno, pwd)와 같은 방식으로 인자를 전달하여 생성자를 통해 객체를 생성해줘야 한다, 
+	*/
 	
+	MemberVO vo = new MemberVO();
+	vo.setEmpno(empno);	//사용자가 전달한 primary key	- 이렇게 불변객체인 VO를 setter를 사용하여 값을 할당하면 안된다는것.
+	
+
 	MemberDAO dao = new MemberDAO();
 	MemberVO member = dao.getMember(vo);
 	RequestDispatcher dispatcher = null;
